@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ACROZELA FINANCE MANAGEMENT - Professional Tool Builder for Loans, Insurance, Mutual Funds, and Wealth Planning.">
+    <title>ACROZELA FINANCE MANAGEMENT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --secondary: #5f6368;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --border: #dadce0;
+            --success: #1e8e3e;
+            --shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+
+        body { background-color: var(--bg-light); color: #202124; line-height: 1.6; }
+
+        /* Header */
+        header {
+            background: var(--white);
+            padding: 1rem 5%;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo { font-weight: 800; font-size: 1.4rem; color: var(--primary); letter-spacing: 1px; }
+
+        /* Layout */
+        .container { display: flex; min-height: calc(100vh - 140px); }
+
+        /* Sidebar */
+        nav {
+            width: 280px;
+            background: var(--white);
+            border-right: 1px solid var(--border);
+            padding: 20px 0;
+            transition: all 0.3s;
+        }
+
+        .nav-item {
+            padding: 12px 25px;
+            cursor: pointer;
+            display: block;
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: #e8f0fe;
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        /* Main Content */
+        main { flex: 1; padding: 30px; overflow-y: auto; }
+
+        .tool-section { display: none; animation: fadeIn 0.4s ease; }
+        .tool-section.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
+            border: 1px solid var(--border);
+        }
+
+        h2 { margin-bottom: 20px; color: var(--primary); font-size: 1.5rem; text-transform: uppercase; }
+
+        /* Forms & Inputs */
+        .grid-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .input-group { display: flex; flex-direction: column; }
+        label { font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; color: var(--secondary); }
+        input, select {
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 1rem;
+            outline: none;
+        }
+        input:focus { border-color: var(--primary); }
+
+        button {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        button:hover { background: #1557b0; }
+
+        /* Tables */
+        .table-container { overflow-x: auto; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid var(--border); }
+        th { background: #f1f3f4; font-size: 0.85rem; }
+
+        /* Footer */
+        footer {
+            background: var(--white);
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            nav { width: 100%; border-right: none; border-bottom: 1px solid var(--border); display: flex; overflow-x: auto; white-space: nowrap; }
+            .nav-item { padding: 10px 15px; border-left: none; border-bottom: 3px solid transparent; }
+            .nav-item.active { border-bottom-color: var(--primary); }
+            main { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">ACROZELA FINANCE MANAGEMENT</div>
+    <div style="font-size: 0.8rem; font-weight: bold; color: var(--success);"></div>
+</header>
+
+<div class="container">
+    <nav id="sidebar">
+        <a class="nav-item active" onclick="showTool('loan-tool')">LOAN MANAGEMENT</a>
+        <a class="nav-item" onclick="showTool('insurance-tool')">INSURANCE CRM</a>
+        <a class="nav-item" onclick="showTool('mf-tool')">MUTUAL FUND</a>
+        <a class="nav-item" onclick="showTool('lifestyle-tool')">LIFESTYLE ANALYZER</a>
+        <a class="nav-item" onclick="showTool('chit-tool')">CHIT FUND</a>
+        <a class="nav-item" onclick="showTool('property-tool')">PROPERTY MANAGER</a>
+        <a class="nav-item" onclick="showTool('legacy-tool')">LEGACY PLANNING</a>
+    </nav>
+
+    <main>
+        <!-- 1. Loan Management System -->
+        <section id="loan-tool" class="tool-section active">
+            <h2>Loan Management System</h2>
+            <div class="card">
+                <h3>EMI Calculator</h3>
+                <div class="grid-form">
+                    <div class="input-group">
+                        <label>Principal Amount (₹)</label>
+                        <input type="number" id="loanP" placeholder="500000">
+                    </div>
+                    <div class="input-group">
+                        <label>Interest Rate (% P.A)</label>
+                        <input type="number" id="loanR" placeholder="10.5">
+                    </div>
+                    <div class="input-group">
+                        <label>Tenure (Months)</label>
+                        <input type="number" id="loanN" placeholder="60">
+                    </div>
+                    <div class="input-group" style="justify-content: flex-end;">
+                        <button onclick="calculateEMI()">Calculate EMI</button>
+                    </div>
+                </div>
+                <div id="emiResult" style="font-weight: bold; font-size: 1.2rem; color: var(--success);"></div>
+            </div>
+            <div class="card">
+                <h3>Loan Schedule Tracker</h3>
+                <div class="grid-form">
+                    <input type="text" id="loanName" placeholder="Bank Name / Loan Type">
+                    <input type="date" id="loanDate">
+                    <button onclick="addLoanRow()">Add to Schedule</button>
+                </div>
+                <div class="table-container">
+                    <table id="loanTable">
+                        <thead><tr><th>Loan Source</th><th>Next EMI Date</th><th>Amount</th><th>Action</th></tr></thead>
+                        <tbody id="loanBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Insurance Agent CRM -->
+        <section id="insurance-tool" class="tool-section">
+            <h2>Insurance Agent CRM</h2>
+            <div class="card">
+                <h3>Policy Register & Renewal Tracker</h3>
+                <div class="grid-form">
+                    <input type="text" id="insClient" placeholder="Client Name">
+                    <input type="text" id="insPolicy" placeholder="Policy Number">
+                    <input type="date" id="insExpiry">
+                    <button onclick="addInsurance()">Register Policy</button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th>Client</th><th>Policy</th><th>Renewal Date</th><th>Status</th></tr></thead>
+                        <tbody id="insBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Mutual Fund -->
+        <section id="mf-tool" class="tool-section">
+            <h2>Mutual Fund Tracker</h2>
+            <div class="card">
+                <h3>SIP Calculator & Register</h3>
+                <div class="grid-form">
+                    <input type="text" id="mfName" placeholder="Fund Name">
+                    <input type="number" id="mfSip" placeholder="Monthly SIP (₹)">
+                    <input type="number" id="mfReturn" placeholder="Expected Return %">
+                    <button onclick="addMF()">Add Investment</button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th>Fund Name</th><th>Monthly SIP</th><th>Proj. Value (10Y)</th><th>Action</th></tr></thead>
+                        <tbody id="mfBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Lifestyle Cost Analyzer -->
+        <section id="lifestyle-tool" class="tool-section">
+            <h2>Lifestyle Cost Analyzer</h2>
+            <div class="card">
+                <h3>Cost Forecasting (Inflation Simulator)</h3>
+                <div class="grid-form">
+                    <div class="input-group">
+                        <label>Current Monthly Expenses (₹)</label>
+                        <input type="number" id="lifeExp" placeholder="50000">
+                    </div>
+                    <div class="input-group">
+                        <label>Inflation Rate (%)</label>
+                        <input type="number" id="lifeInf" value="6">
+                    </div>
+                    <div class="input-group">
+                        <label>Years in Future</label>
+                        <input type="number" id="lifeYear" placeholder="10">
+                    </div>
+                    <button onclick="simulateLifestyle()">Forecast Cost</button>
+                </div>
+                <div id="lifeResult" style="margin-top:20px; font-weight:bold;"></div>
+            </div>
+        </section>
+
+        <!-- 5. Offline Chit Fund -->
+        <section id="chit-tool" class="tool-section">
+            <h2>Offline Chit Fund Manager</h2>
+            <div class="card">
+                <h3>Member Tracker & Collection</h3>
+                <div class="grid-form">
+                    <input type="text" id="chitMember" placeholder="Member Name">
+                    <input type="number" id="chitAmount" placeholder="Contribution (₹)">
+                    <select id="chitStatus">
+                        <option value="Paid">Paid</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                    <button onclick="addChit()">Log Entry</button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th>Member Name</th><th>Contribution</th><th>Status</th></tr></thead>
+                        <tbody id="chitBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Property Wealth Manager -->
+        <section id="property-tool" class="tool-section">
+            <h2>Property Wealth Manager</h2>
+            <div class="card">
+                <h3>Property & Rental Tracker</h3>
+                <div class="grid-form">
+                    <input type="text" id="propName" placeholder="Property Name/Address">
+                    <input type="number" id="propValue" placeholder="Market Value (₹)">
+                    <input type="number" id="propRent" placeholder="Monthly Rent (₹)">
+                    <button onclick="addProperty()">Register Property</button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th>Property</th><th>Value</th><th>Monthly Rent</th><th>Yield %</th></tr></thead>
+                        <tbody id="propBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Legacy Planning System -->
+        <section id="legacy-tool" class="tool-section">
+            <h2>Legacy Planning System</h2>
+            <div class="card">
+                <h3>Nominee & Inheritance Tracker</h3>
+                <div class="grid-form">
+                    <input type="text" id="legAsset" placeholder="Asset Name (e.g. FD, House)">
+                    <input type="text" id="legNominee" placeholder="Nominee Name">
+                    <input type="text" id="legPercent" placeholder="Share %">
+                    <button onclick="addLegacy()">Save Record</button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th>Asset</th><th>Nominee</th><th>Share %</th><th>Action</th></tr></thead>
+                        <tbody id="legacyBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<footer>
+    ACROZELA FINANCE MANAGEMENT<br>
+    CREATED BY ACROZELA TECH
+</footer>
+
+<script>
+    // Navigation Logic
+    function showTool(toolId) {
+        document.querySelectorAll('.tool-section').forEach(section => section.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+        
+        document.getElementById(toolId).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+
+    // 1. Loan Logic
+    function calculateEMI() {
+        let p = document.getElementById('loanP').value;
+        let r = document.getElementById('loanR').value / 12 / 100;
+        let n = document.getElementById('loanN').value;
+        let emi = (p * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+        document.getElementById('emiResult').innerText = `Estimated EMI: ₹${emi.toFixed(2)}`;
+    }
+
+    function addLoanRow() {
+        let name = document.getElementById('loanName').value;
+        let date = document.getElementById('loanDate').value;
+        if(!name || !date) return;
+        let row = `<tr><td>${name}</td><td>${date}</td><td>₹ Tracking</td><td><button onclick="this.parentElement.parentElement.remove()">Delete</button></td></tr>`;
+        document.getElementById('loanBody').innerHTML += row;
+        saveData();
+    }
+
+    // 2. Insurance Logic
+    function addInsurance() {
+        let client = document.getElementById('insClient').value;
+        let policy = document.getElementById('insPolicy').value;
+        let date = document.getElementById('insExpiry').value;
+        if(!client) return;
+        let row = `<tr><td>${client}</td><td>${policy}</td><td>${date}</td><td><span style="color:var(--success)">Active</span></td></tr>`;
+        document.getElementById('insBody').innerHTML += row;
+        saveData();
+    }
+
+    // 3. Mutual Fund Logic
+    function addMF() {
+        let name = document.getElementById('mfName').value;
+        let sip = parseFloat(document.getElementById('mfSip').value);
+        let rate = parseFloat(document.getElementById('mfReturn').value) / 100 / 12;
+        let months = 120; // 10 years projection
+        let fv = sip * ((Math.pow(1 + rate, months) - 1) / rate) * (1 + rate);
+        
+        let row = `<tr><td>${name}</td><td>₹${sip}</td><td>₹${fv.toFixed(0)}</td><td><button onclick="this.parentElement.parentElement.remove()">Remove</button></td></tr>`;
+        document.getElementById('mfBody').innerHTML += row;
+        saveData();
+    }
+
+    // 4. Lifestyle Logic
+    function simulateLifestyle() {
+        let exp = parseFloat(document.getElementById('lifeExp').value);
+        let inf = parseFloat(document.getElementById('lifeInf').value) / 100;
+        let yrs = parseInt(document.getElementById('lifeYear').value);
+        let futureCost = exp * Math.pow((1 + inf), yrs);
+        document.getElementById('lifeResult').innerHTML = `Monthly expense in ${yrs} years: <span style="color:red">₹${futureCost.toFixed(2)}</span>`;
+    }
+
+    // 5. Chit Fund Logic
+    function addChit() {
+        let name = document.getElementById('chitMember').value;
+        let amt = document.getElementById('chitAmount').value;
+        let status = document.getElementById('chitStatus').value;
+        let row = `<tr><td>${name}</td><td>₹${amt}</td><td>${status}</td></tr>`;
+        document.getElementById('chitBody').innerHTML += row;
+        saveData();
+    }
+
+    // 6. Property Logic
+    function addProperty() {
+        let name = document.getElementById('propName').value;
+        let val = parseFloat(document.getElementById('propValue').value);
+        let rent = parseFloat(document.getElementById('propRent').value);
+        let yield = ((rent * 12) / val) * 100;
+        let row = `<tr><td>${name}</td><td>₹${val}</td><td>₹${rent}</td><td>${yield.toFixed(2)}%</td></tr>`;
+        document.getElementById('propBody').innerHTML += row;
+        saveData();
+    }
+
+    // 7. Legacy Logic
+    function addLegacy() {
+        let asset = document.getElementById('legAsset').value;
+        let nom = document.getElementById('legNominee').value;
+        let share = document.getElementById('legPercent').value;
+        let row = `<tr><td>${asset}</td><td>${nom}</td><td>${share}%</td><td><button onclick="this.parentElement.parentElement.remove()">Remove</button></td></tr>`;
+        document.getElementById('legacyBody').innerHTML += row;
+        saveData();
+    }
+
+    // Persistence (Local Storage)
+    function saveData() {
+        const data = document.body.innerHTML;
+        localStorage.setItem('acrozela_data', data);
+    }
+
+    // SEO Helper
+    console.log("ACROZELA FINANCE MANAGEMENT - Professional Tool Loaded");
+</script>
+
+</body>
+</html>
